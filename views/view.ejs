@@ -4,36 +4,257 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Students</title>
-</head>
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th>idnum</th>
-                <th>firstname</th>
-                <th>lastname</th>
-                <th>age</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <%
-                if(student.length > 0){
-                    student.forEach((data=>{
-                
-            %>
-            <tr>
-                <td><%= data.idnum %></td>
-                <td><%= data.firstname %></td>
-                <td><%= data.lastname %></td>
-                <td><%= data.age %></td>
-                <td> <a href="/delete/<%= data.idnum %>" onclick=" return confirm('Do you want to delete this account?')">Delete </a></td>
-            </tr>
-            <%
-                }))
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f0e6;
+            color: #493b30;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 28px;
+        }
+
+        .header h1 {
+            font-size: clamp(26px, 4vw, 36px);
+            color: #493b30;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #8b7b6d;
+            font-size: 15px;
+        }
+
+        .table-card {
+            background-color: #fffdf8;
+            border: 1px solid #e8dfd1;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(83, 65, 45, 0.08);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .table-header h2 {
+            font-size: 20px;
+            color: #493b30;
+        }
+
+        .student-count {
+            background-color: #eee4d4;
+            color: #74583e;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #eee5d9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 600px;
+        }
+
+        thead {
+            background-color: #e9ddc9;
+        }
+
+        th {
+            padding: 17px 20px;
+            color: #5b4938;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 17px 20px;
+            border-bottom: 1px solid #f0e9df;
+            font-size: 14px;
+            color: #625447;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f2e8;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            font-weight: 600;
+            color: #8a6745;
+        }
+
+        .delete-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #fce8e5;
+            color: #b33d32;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #b33d32;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9b8b7b;
+        }
+
+        .empty-state p {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: right;
+            margin-top: 18px;
+            color: #9b8b7b;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 25px 12px;
             }
-            %>
-        </tbody>
-    </table>
+
+            .table-card {
+                padding: 16px;
+                border-radius: 12px;
+            }
+
+            .table-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            th, td {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <h1>Student List</h1>
+            <p>List of names nga may utang sakon.</p>
+        </div>
+
+        <div class="table-card">
+
+            <div class="table-header">
+                <h2>List of Students</h2>
+                <a href= "/">Add Utang</a>
+                <span class="student-count">
+                    <%= student.length %> Students
+                </span>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Idnum</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Age</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <%
+                            if(student.length > 0){
+                                student.forEach((data=>{
+                        %>
+                        <tr>
+                            <td><%= data.idnum %></td>
+                            <td><%= data.firstname %></td>
+                            <td><%= data.lastname %></td>
+                            <td><%= data.age %></td>
+                            <td>
+                                <a
+                                    class="delete-btn"
+                                    href="/delete/<%= data.idnum %>"
+                                    onclick="return confirm('Do you want to delete this account?')"
+                                >
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        <%
+                                }))
+                            } else {
+                        %>
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <strong>No students found</strong>
+                                    <p>There are currently no student records to display.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer">
+                Student List System
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>

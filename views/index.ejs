@@ -3,14 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Registration</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f0e6;
+            color: #493b30;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .register-card {
+            background-color: #fffdf8;
+            padding: 40px 35px;
+            border: 1px solid #e8dfd1;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(83, 65, 45, 0.10);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-icon {
+            width: 65px;
+            height: 65px;
+            background-color: #eee4d4;
+            color: #74583e;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 18px;
+        }
+
+        .form-header h1 {
+            font-size: 27px;
+            margin-bottom: 9px;
+            color: #493b30;
+        }
+
+        .form-header p {
+            font-size: 14px;
+            color: #968575;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #5b4938;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #e5daca;
+            border-radius: 9px;
+            background-color: #fcfaf5;
+            color: #493b30;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input::placeholder {
+            color: #b0a394;
+        }
+
+        .form-group input:focus {
+            border-color: #a58a69;
+            box-shadow: 0 0 0 3px rgba(165, 138, 105, 0.15);
+            background-color: #ffffff;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 9px;
+            background-color: #74583e;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .register-btn:hover {
+            background-color: #5b4330;
+            transform: translateY(-2px);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        .form-footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: #a09180;
+        }
+
+        @media (max-width: 480px) {
+            .register-card {
+                padding: 30px 22px;
+            }
+
+            .form-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <form action="register" method="POST">
-        <input type="text" name="firstname" placeholder="Enter first name: " required>
-        <input type="text" name="lastname" placeholder="Enter last name: " required>
-        <input type="text" name="age" placeholder="Enter your age: " required>
-        <button type="submit">REGISTER</button>
-    </form>
+
+    <div class="register-container">
+        <div class="register-card">
+
+            <div class="form-header">
+                <div class="form-icon">🎓</div>
+                <h1>Utang Registration</h1>
+                <p>Fill in the details below to record utang.</p>
+            </div>
+
+            <form action="register" method="POST">
+
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    
+                    <input
+                        type="text"
+                        id="firstname"
+                        name="firstname"
+                        placeholder="Enter your first name"
+                        autocomplete="given-name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input
+                        type="text"
+                        id="lastname"
+                        name="lastname"
+                        placeholder="Enter your last name"
+                        autocomplete="family-name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="Enter your age"
+                        min="1"
+                        max="120"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="register-btn">
+                    REGISTER STUDENT
+                </button>
+
+            </form>
+
+            <a href="/view" class="form-footer">
+                Student List System
+            </a>
+
+        </div>
+    </div>
+
 </body>
 </html>
